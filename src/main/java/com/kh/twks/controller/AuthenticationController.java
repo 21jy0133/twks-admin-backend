@@ -188,7 +188,7 @@ public class AuthenticationController {
         responseMap.put("empId", employee.getEmpId());
 
         SimpleMailMessage message = new SimpleMailMessage();
-		message.setFrom("xiaoyuebuptgmail.com");
+		message.setFrom("noreply");
 		message.setTo(employee.getEmail());
 		message.setSubject("KH株式会社からのお知らせ");
         String mailText = String.format("%s様\n\nKH株式会社からのお知らせです。\n\n %s様のパスワードをお伝えいたします。\n\n %s \n\n です。\n以上です。", employee.getName(), user.getName(),  user.password);

@@ -28,7 +28,7 @@ public class TwksApplication extends SpringBootServletInitializer implements Web
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // H:\twksfile\img\ScreenShot
-        registry.addResourceHandler("/static/screenshot/**").addResourceLocations("file:H:/twksfile/img/ScreenShot/");
+        registry.addResourceHandler("/static/screenshot/**").addResourceLocations("file:Z:/twksfile/img/ScreenShot/");
 
         //registry.addResourceHandler("/static/screenshot/**").addResourceLocations("file:/Users/yue/Desktop/screenshots/");
     }

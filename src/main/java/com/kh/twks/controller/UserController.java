@@ -30,6 +30,7 @@ public class UserController {
         Employee employee = userRepository.findEmployeeByEmail(authentication.getName());
         //userMap.put("detail", userRepository.findEmployeeByEmail(authentication.getName()));
         userMap.put("username", authentication.getName());
+        userMap.put("empId", employee.getEmpId());
         userMap.put("department", employee.getDepartment());
         userMap.put("rank", employee.getRank());
         userMap.put("jobTitle", employee.getJobTitle());

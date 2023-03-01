@@ -80,12 +80,14 @@ public class AuthenticationController {
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest req ) {
         Map<String, Object> responseMap = new HashMap<>();
         try {
+            logger.info("Enter log In");
 
             Authentication auth = authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(req.email, req.password));
             if (auth.isAuthenticated()) {
                 logger.info("Logged In");
                 UserDetails userDetails = userDetailsService.loadUserByUsername(req.email);
+
                 String token = jwtTokenUtil.generateToken(userDetails);
                 responseMap.put("error", false);
                 responseMap.put("message", "Logged In");
@@ -99,8 +101,8 @@ public class AuthenticationController {
         } catch (DisabledException e) {
             e.printStackTrace();
             responseMap.put("error", true);
-            responseMap.put("message", "User is disabled");
-            return ResponseEntity.status(500).body(responseMap);
+            responseMap.put("message", "ログインする権限がありません");
+            return ResponseEntity.status(403).body(responseMap);
         } catch (BadCredentialsException e) {
             responseMap.put("error", true);
             responseMap.put("message", "Invalid Credentials");
@@ -108,7 +110,7 @@ public class AuthenticationController {
         } catch (Exception e) {
             e.printStackTrace();
             responseMap.put("error", true);
-            responseMap.put("message", "Something went wrong");
+            responseMap.put("message", "エラー");
             return ResponseEntity.status(500).body(responseMap);
         }
     }
@@ -188,7 +190,7 @@ public class AuthenticationController {
         responseMap.put("empId", employee.getEmpId());
 
         SimpleMailMessage message = new SimpleMailMessage();
-		message.setFrom("noreply");
+		message.setFrom("21jy0133@jynet.jec.ac.jp");
 		message.setTo(employee.getEmail());
 		message.setSubject("KH株式会社からのお知らせ");
         String mailText = String.format("%s様\n\nKH株式会社からのお知らせです。\n\n %s様のパスワードをお伝えいたします。\n\n %s \n\n です。\n以上です。", employee.getName(), user.getName(),  user.password);
